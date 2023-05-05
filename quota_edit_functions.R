@@ -1,15 +1,16 @@
-if (!any(installed.packages()[1] == "jsonlite")){
+if (!any(installed.packages()[,1] == "jsonlite")){
 install.packages("jsonlite")
 }
-if (!any(installed.packages()[1] == "maditr")){
+if (!any(installed.packages()[,1] == "maditr")){
      install.packages("maditr")
 }
 library("jsonlite")
+library("maditr")
 
 # The read_json_file function takes a file path as input and returns the JSON data as a list. 
 read_json_file <- function(file_path) {
      json_data <- jsonlite::fromJSON(file_path)
-     return(json_data)
+     json_data
 }
 
 # The edit_json_file function takes the JSON data, a quota ID, and a new quota value as input, and updates the quota value for the specified quota ID. 

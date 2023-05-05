@@ -58,9 +58,9 @@ edit_json_file_by_quota_name <- function(json_data, quota_name, new_quota_value)
 edit_json_file_contractorquota_by_quota_name <- function(json_data, quota_name, contractor_name, new_quota_value) {
      for (i in 1:length(json_data$Counters)) {
           if (json_data$Counters$Name[[i]] == quota_name) {
-               for (j in 1:length(json_data$Counters[[i]]$AssignedContractorData)) {
-                    if (json_data$Counters[[i]]$AssignedContractorData[[j]]$Id == contractor_name) {
-                         json_data$Counters[[i]]$AssignedContractorData[[j]]$QuotaValue <- new_quota_value
+               for (j in 1:length(json_data$Counters$AssignedContractorData[[i]])) {
+                    if (json_data$Counters$AssignedContractorData[[i]]$Id[[j]] == contractor_name) {
+                         json_data$Counters$AssignedContractorData[[i]]$QuotaValue[[j]] <- new_quota_value
                          break
                     }
                }

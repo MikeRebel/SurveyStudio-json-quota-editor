@@ -2,7 +2,7 @@ source("quota_edit_functions.R")
 
 # read,change and save quota file by id
 # Read the JSON file
-json_data <- read_json_file("path/to/file.json")
+json_data <- read_json_file("counters.json")
 
 # Edit the JSON data set quota 400971858088189613 to 5000 interview
 json_data <- edit_json_file(json_data, 400971858088189613, 5000)
@@ -20,7 +20,7 @@ json_data <- read_json_file("path/to/file.json")
 json_data <- edit_json_file_by_quota_name(json_data, "Полные интервью", 5000)
 
 # Write the updated JSON data to a file
-write_json_file(json_data, "path/to/updated_file.json")
+write_json_file(json_data, "counters_edited.json")
 
 
 

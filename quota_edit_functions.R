@@ -1,4 +1,9 @@
-install.packages(jsonlite)
+if (!any(installed.packages()[1] == "jsonlite")){
+install.packages("jsonlite")
+}
+if (!any(installed.packages()[1] == "maditr")){
+     install.packages("maditr")
+}
 library("jsonlite")
 
 # The read_json_file function takes a file path as input and returns the JSON data as a list. 
@@ -10,8 +15,8 @@ read_json_file <- function(file_path) {
 # The edit_json_file function takes the JSON data, a quota ID, and a new quota value as input, and updates the quota value for the specified quota ID. 
 edit_json_file <- function(json_data, quota_id, new_quota_value) {
      for (i in 1:length(json_data$Counters)) {
-          if (json_data$Counters[[i]]$Id == quota_id) {
-               json_data$Counters[[i]]$Quota <- new_quota_value
+          if (json_data$Counters$Id[[i]] == quota_id) {
+               json_data$Counters$Quota[[i]] <- new_quota_value
                break
           }
      }
@@ -32,8 +37,8 @@ write_json_file <- function(json_data, file_path) {
 # the function updates the Quota property for that quota.
 edit_json_file_by_quota_name <- function(json_data, quota_name, new_quota_value) {
      for (i in 1:length(json_data$Counters)) {
-          if (json_data$Counters[[i]]$Name == quota_name) {
-               json_data$Counters[[i]]$Quota <- new_quota_value
+          if (json_data$Counters$Name[[i]] == quota_name) {
+               json_data$Counters$Quota[[i]] <- new_quota_value
                break
           }
      }
@@ -51,7 +56,7 @@ edit_json_file_by_quota_name <- function(json_data, quota_name, new_quota_value)
 # If a match is found, the function updates the QuotaValue property for that contractor.
 edit_json_file_contractorquota_by_quota_name <- function(json_data, quota_name, contractor_name, new_quota_value) {
      for (i in 1:length(json_data$Counters)) {
-          if (json_data$Counters[[i]]$Name == quota_name) {
+          if (json_data$Counters$Name[[i]] == quota_name) {
                for (j in 1:length(json_data$Counters[[i]]$AssignedContractorData)) {
                     if (json_data$Counters[[i]]$AssignedContractorData[[j]]$Id == contractor_name) {
                          json_data$Counters[[i]]$AssignedContractorData[[j]]$QuotaValue <- new_quota_value

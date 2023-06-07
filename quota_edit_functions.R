@@ -39,8 +39,16 @@ write_json_file <- function(json_data, file_path) {
 edit_json_file_by_quota_name <- function(json_data, quota_name, new_quota_value) {
      for (i in 1:nrow(json_data$Counters)) {
           if (json_data$Counters$Name[[i]] == quota_name) {
-               json_data$Counters$Quota[[i]] <- new_quota_value
-               break
+               if(is.null(nrow(json_data$Counters[[18]][[i]]))) {
+                    json_data$Counters$Quota[[i]] <- new_quota_value
+                    break
+               } else {
+                    for (j in 1:nrow(json_data$Counters$Children[[i]])) {
+                         if (json_data$Counters$Children[[i]]$Name[[j]] == quota_name) {
+                                   json_data$Counters$Children[[i]]$Quota[[j]] == new_quota_value
+                              }
+                    }
+               }
           }
      }
      return(json_data)

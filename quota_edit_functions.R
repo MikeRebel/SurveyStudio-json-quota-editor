@@ -4,6 +4,7 @@ install.packages("jsonlite")
 if (!any(installed.packages()[,1] == "maditr")){
      install.packages("maditr")
 }
+options(scipen = 999)
 library("jsonlite")
 library("maditr")
 
@@ -26,8 +27,9 @@ edit_json_file <- function(json_data, quota_id, new_quota_value) {
 
 # The write_json_file function takes the updated JSON data and a file path as input, and writes the JSON data to the specified file path.
 write_json_file <- function(json_data, file_path) {
-     jsonlite::toJSON(json_data, pretty = TRUE, auto_unbox = TRUE) %>%
-          writeLines(file_path)
+     jsonlite::toJSON(json_data, pretty = TRUE,digits = NA) %>%
+          # writeLines(file_path,useBytes = TRUE)
+          write(file_path)
 }
 
 
@@ -37,15 +39,20 @@ write_json_file <- function(json_data, file_path) {
 # if the Name property of each quota matches the specified quota name. If a match is found, 
 # the function updates the Quota property for that quota.
 edit_json_file_by_quota_name <- function(json_data, quota_name, new_quota_value) {
+     
+     # browser()
+     
      for (i in 1:nrow(json_data$Counters)) {
           if (json_data$Counters$Name[[i]] == quota_name) {
-               if(is.null(nrow(json_data$Counters[[18]][[i]]))) {
                     json_data$Counters$Quota[[i]] <- new_quota_value
                     break
+               if(is.null(nrow(json_data$Counters$Children[[i]]))) {
+                    break 
                } else {
                     for (j in 1:nrow(json_data$Counters$Children[[i]])) {
                          if (json_data$Counters$Children[[i]]$Name[[j]] == quota_name) {
                                    json_data$Counters$Children[[i]]$Quota[[j]] == new_quota_value
+                                   break
                               }
                     }
                }

@@ -66,4 +66,5 @@ json_data <- edit_json_file_by_quota_name(json_data, "Чеченская Рес�
 json_data <- edit_json_file_by_quota_name(json_data, "Брянская область", 35)
 json_data <- edit_json_file_by_quota_name(json_data, "Юг: другое", 48)
 
+json_data$Counters$Id <- as.numeric(json_data$Counters$StringId)
 write_json_file(json_data, paste0(Quota_file_name,"_edited.json"))

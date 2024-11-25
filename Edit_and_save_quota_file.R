@@ -89,10 +89,13 @@ json_data <- edit_json_file_by_quota_name(json_data, "Чеченская Рес�
 json_data <- edit_json_file_by_quota_name(json_data, "Брянская область", 35)
 json_data <- edit_json_file_by_quota_name(json_data, "Юг: другое", 48)
 
-
+# 
+# json_data_tojson <- jsonlite::toJSON(json_data,digits=NA)
+# write_json_file(json_data_tojson, paste0(Quota_file_name,"_edited.json"))
 
 # Write the updated JSON data to a file
 write_json_file(json_data, paste0(Quota_file_name,"_edited.json"))
+
 # load counters_edited.json to Survey Studio project
 
 # read,change and save contractor quota in quota file by quota name and contractor id

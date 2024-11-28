@@ -27,9 +27,9 @@ edit_json_file <- function(json_data, quota_id, new_quota_value) {
 
 # The write_json_file function takes the updated JSON data and a file path as input, and writes the JSON data to the specified file path.
 write_json_file <- function(json_data, file_path) {
-     jsonlite::toJSON(json_data, pretty = TRUE,digits = 0) %>%
-          # writeLines(json_data,file_path,useBytes = TRUE)
-          write(file_path)
+     jsonlite::toJSON(json_data, na="null",auto_unbox = TRUE) %>%
+          writeLines(file_path,useBytes = TRUE)
+          # write(file_path)
 }
 
 

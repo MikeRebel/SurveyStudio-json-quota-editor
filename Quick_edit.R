@@ -1,5 +1,5 @@
 source("quota_edit_functions.R")
-Quota_file_name = "counters_advanced_p39400_test"
+Quota_file_name = "counters_advanced_p44448_3acfae0fed8cef48"
 json_data <- read_json_file(paste0(Quota_file_name,".json"))
 
 json_data <- edit_json_file_by_quota_name(json_data, "Полные интервью (БЕЗ ТИНЬКОФФ)", 2930)
@@ -66,5 +66,7 @@ json_data <- edit_json_file_by_quota_name(json_data, "Чеченская Рес�
 json_data <- edit_json_file_by_quota_name(json_data, "Брянская область", 35)
 json_data <- edit_json_file_by_quota_name(json_data, "Юг: другое", 48)
 
-json_data$Counters$Id <- as.numeric(json_data$Counters$StringId)
+json_data$Counters$Id <- json_data$Counters$StringId
+json_data[["Counters"]][["Children"]][[5]]$Id <- json_data[["Counters"]][["Children"]][[5]]$StringId
 write_json_file(json_data, paste0(Quota_file_name,"_edited.json"))
+

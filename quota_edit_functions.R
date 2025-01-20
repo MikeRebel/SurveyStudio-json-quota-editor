@@ -32,7 +32,7 @@ write_json_file <- function(json_data, file_path) {
           # write(file_path)
 }
 
-# Recursive function to extract names and quotas
+# Recursive function to extract names and quota values
 extract_counters <- function(counters) {
         result <- data.frame(Name = character(), Quota = numeric(), stringsAsFactors = FALSE)
         
@@ -48,6 +48,42 @@ extract_counters <- function(counters) {
                 }
         }
         
+        return(result)
+}
+
+# Recursive function to extract full quota names and quotas values
+Full_names_extract_counters <- function(counters, parent_quota_name=NULL) {
+        result <- data.frame(Name = character(), Quota = numeric(), stringsAsFactors = FALSE)
+        current_quota_name = ""
+        for (x in 1:nrow(counters)) {
+                # Extract current counter
+                # browser()
+                counter <- counters[x,]
+                result <- rbind(result, data.frame(Name = paste0(parent_quota_name, counter$Name), Quota = counter$Quota))
+                current_quota_name <- parent_quota_name
+                # If children exist, process them recursively
+                if (!is.null(nrow(counter$Children[[1]])) && nrow(counter$Children[[1]]) > 0) {
+                        quota_name <- paste0(parent_quota_name, counter$Name," <- ")
+                        result <- rbind(result, Full_names_extract_counters(counter$Children[[1]],quota_name))
+                } 
+                # else {
+                #         restore_quota_name <- strsplit(parent_quota_name," <- ",fixed = TRUE)
+                #         quota_name_length <- length(restore_quota_name[[1]]) - 1
+                #         parent_quota_name <- restore_quota_name[[1]][1:quota_name_length]
+                #         parent_name=""
+                #         for (name in parent_quota_name) {
+                #                 if(nchar(parent_name) == 0) {
+                #                         parent_name <- name
+                #                 } else {
+                #                         parent_name <- paste0(parent_name, " <- ", name)
+                #                         parent_name
+                #                 }
+                #         }
+                # }
+               
+                
+        }
+        parent_quota_name <- current_quota_name
         return(result)
 }
 

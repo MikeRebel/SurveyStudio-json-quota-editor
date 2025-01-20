@@ -4,6 +4,8 @@ json_data <- read_json_file(paste0(Quota_file_name,".json"))
 
 quotas <- extract_counters(json_data$Counters)
 
+quota_names <- Full_names_extract_counters(json_data$Counters)
+
 print(view_quota(json_data))
 
 json_data <- edit_json_file_by_quota_name(json_data, "Полные интервью", 30100)

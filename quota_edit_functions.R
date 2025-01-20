@@ -40,7 +40,9 @@ write_json_file <- function(json_data, file_path) {
 # the function updates the Quota property for that quota.
 edit_json_file_by_quota_name <- function(json_data, quota_name, new_quota_value) {
      
-     # browser()
+     browser()
+       j<- json_data$Counters[Counters$Name==quota_name]
+       ifelse(json_data$Counters$Name==quota_name,new_quota_value,json_data$Counters$Quota)
      
      for (i in 1:nrow(json_data$Counters)) {
           if (json_data$Counters$Name[[i]] == quota_name) {

@@ -32,6 +32,38 @@ write_json_file <- function(json_data, file_path) {
           # write(file_path)
 }
 
+# Recursive function to extract names and quotas
+extract_counters <- function(counters) {
+        result <- data.frame(Name = character(), Quota = numeric(), stringsAsFactors = FALSE)
+        
+        for (x in 1:nrow(counters)) {
+                # Extract current counter
+                # browser()
+                counter <- counters[x,]
+                result <- rbind(result, data.frame(Name = counter$Name, Quota = counter$Quota))
+                
+                # If children exist, process them recursively
+                if (!is.null(nrow(counter$Children[[1]])) && nrow(counter$Children[[1]]) > 0) {
+                        result <- rbind(result, extract_counters(counter$Children[[1]]))
+                }
+        }
+        
+        return(result)
+}
+
+# View all quota function
+view_quota <-  function(json_data) {
+        
+        Counter_data <- json_data$Counters
+        result <- data.frame(
+                Name = character(), 
+                Quota = numeric(), 
+                stringsAsFactors = FALSE
+                )
+        result <- extract_counters(Counter_data)
+        result
+        
+}
 
 # Edit function by quota name
 # The edit_json_file_by_quota_name function takes the JSON data, a quota name, and a new quota value as input, 

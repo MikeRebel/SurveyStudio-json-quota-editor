@@ -4,9 +4,13 @@ install.packages("jsonlite")
 if (!any(installed.packages()[,1] == "maditr")){
      install.packages("maditr")
 }
+if (!any(installed.packages()[,1] == "openxlsx")){
+        install.packages("openxlsx")
+}
 options(scipen = 999)
 library("jsonlite")
 library("maditr")
+library("openxlsx")
 
 # The read_json_file function takes a file path as input and returns the JSON data as a list. 
 read_json_file <- function(file_path) {
@@ -83,6 +87,7 @@ Full_names_extract_counters <- function(counters, parent_quota_name=NULL) {
                
                 
         }
+        # restore quota parent name after recursion iteration exit
         parent_quota_name <- current_quota_name
         return(result)
 }

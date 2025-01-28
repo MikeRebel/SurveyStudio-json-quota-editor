@@ -47,27 +47,22 @@ saveWorkbook(wb,paste0("Список квот.xlsx"),overwrite = TRUE)
 quota_view <- view_quota(json_data)
 quota_names_view <- full_view_quota(json_data)
 
-# json_data <- edit_json_file_by_quota_name(json_data, "Полные интервью", 30100)
-
-# json_data <- edit_json_file_by_quota_viev(json_data, "Полные интервью", 30200)
 json_data <- edit_json_file_by_quota_viev(json_data, "Полные интервью", 30300)
-# json_data_edited_V3 <- edit_json_file_by_quota_viev_V3(json_data, "Полные интервью", 30300)
-
 json_data <- edit_json_file_by_quota_viev(json_data, "Северо-Западный федеральный округ. Первая волна. Короткие и длинные. <- Архангельская область + АО
 ", 110)
-
 json_data <- edit_json_file_by_quota_viev(json_data, "Северо-Западный федеральный округ. Первая волна. Короткие и длинные. <- Архангельская область + АО <- Архангельская область + АО 45к
 ", 55)
 
 quota_names_edited <- full_names_extract_counters(json_data$Counters)
 quota_names == quota_names_edited
 
+# для проверки новых квот формируем в файле лист с обновленными квотами
 addWorksheet(wb,"Полные названия новых квот")
 writeData(wb,"Полные названия новых квот", quota_names_edited)
 saveWorkbook(wb,paste0("Список квот.xlsx"),overwrite = TRUE)
 
 
-json_data$Counters$Id <- json_data$Counters$StringId
-json_data[["Counters"]][["Children"]][[5]]$Id <- json_data[["Counters"]][["Children"]][[5]]$StringId
+# json_data$Counters$Id <- json_data$Counters$StringId
+# json_data[["Counters"]][["Children"]][[5]]$Id <- json_data[["Counters"]][["Children"]][[5]]$StringId
 write_json_file(json_data, paste0(Quota_file_name,"_edited.json"))
-jr
+

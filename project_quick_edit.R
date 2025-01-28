@@ -1,5 +1,5 @@
 source("quota_edit_functions.R")
-Quota_file_name = "counters_test_tricolor"
+Quota_file_name = "counters_test_project"
 json_data <- read_json_file(paste0(Quota_file_name,".json"))
 
 # Формирует список квот из фрейма Counters
